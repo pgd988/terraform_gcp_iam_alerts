@@ -16,8 +16,10 @@ output "alert_policy_ids" {
     api_enabled                 = google_monitoring_alert_policy.api_enabled.id
     basic_role_granted          = google_monitoring_alert_policy.basic_role_granted.id
     billing_changes_or_roles    = google_monitoring_alert_policy.billing_changes_or_roles.id
+    alert_policy_modified       = google_monitoring_alert_policy.alert_policy_modified.id
   }
 }
+
 
 
 

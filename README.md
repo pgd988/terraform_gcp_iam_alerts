@@ -14,6 +14,7 @@ This Terraform module sets up 7 critical Log-based Alert Policies in Google Clou
 8. **New API Enabled**: Triggers when a new service/API is enabled in the project (`google.api.serviceusage.v1.ServiceUsage.EnableService` or `EnableServices`).
 9. **Basic Role Granted**: Triggers when a primitive role (`roles/owner`, `roles/editor`, `roles/viewer`) is granted at the **project level**. (Does not trigger for service-level grants like on a specific GCS bucket or GCE instance).
 10. **Billing Modified or Billing Role Granted**: Triggers on any mutating API calls to `cloudbilling.googleapis.com` or when an IAM role containing the word `billing` (e.g., `roles/billing.admin`, `roles/billing.user`) is granted.
+11. **Alert Policy or Notification Channel Modified**: Triggers if exactly one of these critical alert policies or the security email notification channel (provisioned by this module) is maliciously modified or deleted via `monitoring.googleapis.com` (`UpdateAlertPolicy`, `DeleteAlertPolicy`, etc.).
 
 ## How to Use
 

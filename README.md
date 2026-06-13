@@ -15,16 +15,54 @@ This Terraform module sets up 7 critical Log-based Alert Policies in Google Clou
 9. **Basic Role Granted**: Triggers when a primitive role (`roles/owner`, `roles/editor`, `roles/viewer`) is granted at the **project level**. (Does not trigger for service-level grants like on a specific GCS bucket or GCE instance).
 10. **Billing Modified or Billing Role Granted**: Triggers on any mutating API calls to `cloudbilling.googleapis.com` or when an IAM role containing the word `billing` (e.g., `roles/billing.admin`, `roles/billing.user`) is granted.
 
-## Usage Example
+## How to Use
+
+### 1. Clone the Repository
+
+Clone this module into your workspace (either as a subdirectory or a sibling directory to your main Terraform project).
+
+```bash
+git clone git@github.com:pgd988/terraform_gcp_iam_alerts.git
+```
+
+### 2. Set Environment Variables
+
+Ensure your Terraform environment is authenticated with GCP. The identity executing the Terraform must have `roles/monitoring.alertPolicyEditor` and `roles/monitoring.notificationChannelEditor`.
+
+```bash
+# Optional: Set the active GCP project
+export GOOGLE_PROJECT="my-gcp-project-id"
+
+# Set credentials if running locally without gcloud auth
+export GOOGLE_APPLICATION_CREDENTIALS="/path/to/key.json"
+```
+
+### 3. Connect as a Module
+
+Add the following `module` block to your existing Terraform project's configuration.
 
 ```hcl
 module "security_alerting" {
-  source = "./terraform_iam_alerting_module"
+  # Point to the local path where you cloned the repo
+  source = "./terraform-gcp-security-alerting"
+  
+  # Alternatively, source it directly from Git:
+  # source = "git::https://github.com/your-org/terraform-gcp-security-alerting.git?ref=main"
 
   project_id                 = "my-gcp-project-id"
   notification_email_address = "security-team@example.com"
   alert_prefix               = "[P0-SECURITY] "
 }
+```
+
+### 4. Deploy
+
+Initialize the new module and apply it to your GCP project.
+
+```bash
+terraform init
+terraform plan
+terraform apply
 ```
 
 ## Inputs

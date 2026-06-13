@@ -44,10 +44,10 @@ Add the following `module` block to your existing Terraform project's configurat
 ```hcl
 module "security_alerting" {
   # Point to the local path where you cloned the repo
-  source = "./terraform-gcp-security-alerting"
+  source = "./terraform_gcp_iam_alerts"
   
   # Alternatively, source it directly from Git:
-  # source = "git::https://github.com/your-org/terraform-gcp-security-alerting.git?ref=main"
+  # source = "git::ssh://git@github.com/pgd988/terraform_gcp_iam_alerts.git?ref=main"
 
   project_id                 = "my-gcp-project-id"
   notification_email_address = "security-team@example.com"
